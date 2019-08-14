@@ -1,0 +1,79 @@
+
+# include<iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node* next;
+};
+
+//Function to print middle element of the linked list 
+
+void printMiddle(struct Node* head)
+{
+    struct Node* fast_ptr = head;
+    struct Node* slow_ptr = head;
+    
+    if(head!=NULL)
+    {
+        while(fast_ptr!=NULL && fast_ptr->next!=NULL)
+        {
+            fast_ptr = fast_ptr->next->next;
+            slow_ptr = slow_ptr->next;
+        }
+        cout<<"Middle element is: "<<slow_ptr->data<<endl;
+    }
+}
+
+//Function that will add a new Node
+
+void push(struct Node** head_ref , int new_data)
+{
+    //Allocate the new Node
+    
+    struct Node* new_node  = new Node;
+    
+    //Enter data into this new Node
+    
+    new_node->data = new_data;
+    
+    //link old node with new node
+    
+    new_node->next = (*head_ref);
+    
+    //Move head ref to new node
+    
+    (*head_ref) = new_node;
+}
+
+//Function to print linked list
+
+void printList(struct Node* ptr)
+{
+    while(ptr!=NULL)
+    {
+        cout<<ptr->data;
+        ptr = ptr->next;
+        
+    }
+    
+    cout<<endl;
+}
+
+//Main Function
+
+int main()
+{
+    //start with empty list
+    
+    struct Node* head = NULL;
+    
+    for(int i=5;i>0;i--)
+    {
+        push(&head,i);
+        printList(head);
+        printMiddle(head);
+    }
+    return 0;
+}
